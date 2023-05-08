@@ -58,6 +58,12 @@ function keyPressed() {
     formaActual = "triangulo";
   } else if (key == "4") { // Tecla 3
     formaActual = "pentagono";
+  } else if (key == "5") { // Tecla 3
+    formaActual = "hexagono";
+  } else if (key == "6") { // Tecla 3
+    formaActual = "galleta";
+  } else if (key == "7") { // Tecla 3
+    formaActual = "estrella";
   }
 }
 
@@ -68,6 +74,8 @@ class Figura {
     this.y = y;
     this.size = size;
     this.originalSize = size;
+    let radio = size;
+
   }
 
   update(mouseY) {
@@ -107,19 +115,56 @@ class Figura {
       triangle(this.x, this.y - this.size / 2, this.x - this.size / 2, this.y + (this.size +15) / 2, this.x + this.size / 2, this.y + (this.size +15) / 2);
       break;
 
-      case "pentagono":
+    case "pentagono":
         rotate(angle + 5 * (width/2 +- mouseX) / width)
 
         beginShape();
-        let radio = 500 / 2;
+
         for (let i = 0; i < 5; i++) {
-          let angulo = 100  * i - HALF_PI;
-          let x = this.x + cos(angulo) * radio;
-          let y = this.y + sin(angulo) * radio;
+          let angulo =  i * 360 /5;
+          let x = ((this.x ) + cos(angulo) * (this.size/2));
+          let y = ((this.y ) + sin(angulo) * (this.size/2));
+          vertex(x, y);
+        }
+        endShape(CLOSE);
+        break;
+    case "hexagono":
+        rotate(angle + 5 * (width/2 +- mouseX) / width)
+
+        beginShape();
+       
+        for (let i = 0; i < 6; i++) {
+          let angulo =  i * 360 / 6;
+          let x = this.x + ((cos(angulo) * (this.size/2)));
+        let y = this.y + ((sin(angulo) * (this.size/2)));
           vertex(x, y);
         }
         endShape(CLOSE);
         break;  
+    case "galleta":
+      rotate(angle + 5 * (width/2 +- mouseX) / width)
+
+      beginShape();
+      let radio = this.size;
+      for (let i = 0; i < 360; i++) {
+        let angulo = 100  - i * 50;
+        let x = this.x + ((cos(angulo) * (this.size/2)));
+        let y = this.y + ((sin(angulo) * (this.size/2)));
+        vertex(x, y);
+      }
+      endShape(CLOSE);
+    break;
+      
+    case "estrella":
+      beginShape();
+      for (let i = 0; i < 5; i++) {
+        let angulo = 500  * i - 5;
+        let x = this.x + ((cos(angulo) * (this.size/2)));
+        let y = this.y + ((sin(angulo) * (this.size/2)));
+        vertex(x, y);
+      }
+      endShape(CLOSE);
+    break;
       }
   }
 }
