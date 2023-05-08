@@ -104,13 +104,13 @@ class Figura {
     case "cuadrado":
       rotate(angle + 8 * (width/2 +- mouseX) / width)
       rectMode(CENTER);
-      rect(this.x, this.y, this.size, this.size);
+      rect(this.x, this.y, this.size * 1.5, this.size * 1.5);
       break;
 
     case "circulo":
-      rotate(angle + 15 * (width/3 +- mouseX) / width)
+      rotate(angle + 25 * (width/3 +- mouseX) / width)
       ellipseMode(CENTER);
-      ellipse(this.x * sin(angle), this.y, this.size + 45, this.size + 15);
+      ellipse(this.x * sin(angle), this.y, this.size * 1.6, this.size * 1.7);
       break;
 
     case "triangulo":
@@ -118,60 +118,60 @@ class Figura {
       beginShape();
       for (let i = 0; i < 5; i++) {
         let angulo = 600  * i - 5;
-        let x = this.x + ((cos(angulo) * (this.size * 0.7))); //aumento de tamaño en x
-        let y = this.y + ((sin(angulo) * (this.size * 0.7))); //aumento de tamaño en y
+        let x = this.x + ((cos(angulo) * (this.size * 0.9))); //aumento de tamaño en x
+        let y = this.y + ((sin(angulo) * (this.size * 0.9))); //aumento de tamaño en y
         vertex(x, y);
       }
       endShape(CLOSE);
       break;
 
     case "pentagono":
-        rotate(angle + 5 * (width/2 +- mouseX) / width)
+        rotate(angle + 8 * (width/2 +- mouseX) / width)
         beginShape();
 
         for (let i = 0; i < 5; i++) {
           let angulo =  i * 360 /5;
-          let x = ((this.x ) + cos(angulo) * (this.size * 0.7)); //aumento de tamaño en x
-          let y = ((this.y ) + sin(angulo) * (this.size * 0.7)); //aumento de tamaño en y
+          let x = ((this.x ) + cos(angulo) * (this.size * 0.9)); //aumento de tamaño en x
+          let y = ((this.y ) + sin(angulo) * (this.size * 0.9)); //aumento de tamaño en y
           vertex(x, y);
         }
         endShape(CLOSE);
         break;
 
     case "hexagono":
-        rotate(angle + 5 * (width/2 +- mouseX) / width)
+        rotate(angle + 8 * (width/2 +- mouseX) / width)
         beginShape();
        
         for (let i = 0; i < 6; i++) {
           let angulo =  i * 360 / 6;
-          let x = this.x + ((cos(angulo) * (this.size * 0.7))); //aumento de tamaño en x
-          let y = this.y + ((sin(angulo) * (this.size * 0.7))); //aumento de tamaño en y
+          let x = this.x + ((cos(angulo) * (this.size * 0.9))); //aumento de tamaño en x
+          let y = this.y + ((sin(angulo) * (this.size * 0.9))); //aumento de tamaño en y
           vertex(x, y);
         }
         endShape(CLOSE);
         break;
 
     case "galleta":
-      rotate(angle + 5 * (width/2 +- mouseX) / width)
+      rotate(angle + 8 * (width/2 +- mouseX) / width)
 
       beginShape();
       //let radio = this.size;
       for (let i = 0; i < 360; i++) {
         let angulo = 100  - i * 50;
-        let x = this.x + ((cos(angulo) * (this.size * 0.7))); //aumento de tamaño en x
-        let y = this.y + ((sin(angulo) * (this.size * 0.7))); //aumento de tamaño en y
+        let x = this.x + ((cos(angulo) * (this.size * 0.9))); //aumento de tamaño en x
+        let y = this.y + ((sin(angulo) * (this.size * 0.9))); //aumento de tamaño en y
         vertex(x, y);
       }
       endShape(CLOSE);
     break;
       
     case "estrella":
-      rotate(angle + 5 * (width/2 +- mouseX) / width)
+      rotate(angle + 8 * (width/2 +- mouseX) / width)
       beginShape();
       for (let i = 0; i < 100; i++) {
         let angulo = (mouseX * 2.5) * i/30;
-        let x = this.x + ((cos(angulo) * (this.size * 0.7))); //aumento de tamaño en x
-        let y = this.y + ((sin(angulo) * (this.size * 0.7))); //aumento de tamaño en y
+        let x = this.x + ((cos(angulo) * (this.size * 0.9))); //aumento de tamaño en x
+        let y = this.y + ((sin(angulo) * (this.size * 0.9))); //aumento de tamaño en y
         vertex(x, y);
       }
       endShape(CLOSE);
