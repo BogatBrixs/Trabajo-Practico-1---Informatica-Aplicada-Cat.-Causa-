@@ -28,7 +28,7 @@ let desfaseporTono = 0;
 
 const model_url = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/';
 
-let tiempoEntreFiguras = 10; // una variable para almacenar el tiempo en segundos que deseas que transcurra antes de cambiar las figuras
+let tiempoEntreFiguras = 5; // una variable para almacenar el tiempo en segundos que deseas que transcurra antes de cambiar las figuras
 let tiempoTranscurrido = 0; //variable para realizar un seguimiento del tiempo transcurrido
 
 
