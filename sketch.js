@@ -10,7 +10,7 @@ let colorActual; // Variable que almacena el color actual
 let cambioColor = false; // Variable de bandera para el cambio de color
 let cantidadFiguras = 19;
 let granos; //declaramos la variable para la foto de granos
-let saturacionDeseada = 80; // Valor de saturación deseado (0-100)
+let saturacionDeseada = 90; // Valor de saturación deseado (0-100)
 
 //____________________ PARTE DE AUDIO ____________________//
 let monitorear = false;
