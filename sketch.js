@@ -37,13 +37,13 @@ let tiempoTranscurrido = 0; //variable para realizar un seguimiento del tiempo t
 //____________________ PARTE DE ESTADOS____________________//
 let formaActual = "circulo";
 let marcaEnElTiempo;
-let tiempoLimiteForma = 3000;
-let tiempoLimiteColor = 3000;
-let tiempoLimiteTamaño = 3000;
-let tiempoReinicio = 1000;
-let estado = "forma"; 
-
-
+let tiempoLimiteForma = 4000;
+let tiempoLimiteColor = 4000;
+let tiempoLimiteTamaño = 4000;
+let tiempoReinicio = 3000;
+let estados = ["forma", "color", "tamaño", "fin", "reinicio"];
+let estadoActual = 0;
+let estado;
 const model_url = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/';
 
 
@@ -103,28 +103,26 @@ function draw() {
   let vol = mic.getLevel();
   gestorAmp.actualizar( vol );
 
+
   haySonido = gestorAmp.filtrada>0.1;
   let inicioElSonido = haySonido && !antesHabiaSonido;
   let finDelSonido = !haySonido && antesHabiaSonido;
 
 //____________________ PARTE DE ESTADOS____________________//
-if( estado == "forma" ){
+if( estadoActual === 0 ){
   background(255);
+let textToShow = "ELIGE LA FORMA EMITIENDO Y PAUSANDO TU VOZ";
+let x = width / 2; // Posición horizontal del texto
+let y = height - 50; // Posición vertical del texto
+fill(0);
+textSize(20);
+textAlign(CENTER, BOTTOM);
+text(textToShow, x, y);
+
 
   if( inicioElSonido ){
-    /*
-    // Incrementar el tiempo transcurrido
-     tiempoTranscurrido += deltaTime / 1;
-     // Verificar si ha transcurrido el tiempo suficiente para cambiar las figuras
-         if (tiempoTranscurrido >= tiempoEntreFiguras) {
-           // Cambiar las figuras aquí
-           cambiarFiguras();// Reiniciar el tiempo transcurrido
-           tiempoTranscurrido = 0;
-         }
-    */
 
     cambiarFiguras();// Reiniciar el tiempo transcurrido
-
   }
 
   if( finDelSonido ){
@@ -134,13 +132,21 @@ if( estado == "forma" ){
   if( !haySonido ){
     let ahora = millis();
     if( ahora > marcaEnElTiempo+tiempoLimiteForma ){
-        estado = "color";
+        estadoActual = 1;
         marcaEnElTiempo = millis();
     }
   }
 
-}else if( estado == "color" ){
-  background(200);
+}else if( estadoActual === 1 ){
+  background(255);
+  
+  let textToShow = "ELIGE EL COLOR CON EL TONO DE TU VOZ";
+  let x = width / 2; // Posición horizontal del texto
+  let y = height - 50; // Posición vertical del texto
+  fill(0);
+  textSize(20);
+  textAlign(CENTER, BOTTOM);
+  text(textToShow, x, y);
 
   if( haySonido ){
     let tono = gestorPitch.filtrada; // Obtener el valor del tono del micrófono utilizando gestorPitch.filtrada
@@ -156,13 +162,13 @@ if( estado == "forma" ){
   if( !haySonido ){
     let ahora = millis();
     if( ahora > marcaEnElTiempo+tiempoLimiteColor ){
-        estado = "tamaño";
+        estadoActual = 2;
         marcaEnElTiempo = millis();
     }
   }
 
-}else if( estado == "tamaño" ){
-  background(155);
+}else if( estadoActual === 2 ){
+  background(255);
 
   if( haySonido ){
 
@@ -184,14 +190,15 @@ if( estado == "forma" ){
   if( !haySonido ){
     let ahora = millis();
     if( ahora > marcaEnElTiempo+tiempoLimiteTamaño){
-        estado = "fin";
+        estadoActual = 3;
         marcaEnElTiempo = millis();
     }
   }
   
 
-}else if( estado == "fin" ){
-  background(255);
+}else if( estadoActual === 3){
+  
+
 
   if( inicioElSonido ){
     marcaEnElTiempo = millis();
@@ -200,21 +207,16 @@ if( estado == "forma" ){
   if( haySonido ){
     let ahora = millis();
     if( ahora > marcaEnElTiempo+tiempoReinicio ){
-        estado = "reinicio";
+        estadoActual = 4;
         marcaEnElTiempo = millis();
     }
   }
 
-}else if( estado == "reinicio" ){
+}else if( estadoActual === 4 ){
 
-  rectangulos = [];
-  cantidad = 0;
-  estado = "forma";
-  elColor = color(0);
-  marcaEnElTiempo = millis();
-  save("resultado"+frameCount+".jpg");
-
-} 
+      estadoActual = 0;
+      save("resultado"+frameCount+".png");
+}
 
 // DIBUJAMOS LAS FIGURAS
 push();
@@ -231,14 +233,56 @@ pop(); // Dibuja la imagen con opacidad
 tint(255, 50); // 128 es el valor de opacidad (0 es completamente transparente y 255 es opaco)
 image(granos,0,0, width, height); // Cambia las coordenadas y dimensiones según tus necesidades
 
+if( estadoActual == 0 ){
+
+  let textToShow = "ELIGE LA FORMA EMITIENDO Y PAUSANDO TU VOZ";
+  let x = width / 2; // Posición horizontal del texto
+  let y = height - 50; // Posición vertical del texto
+  fill(0);
+  textSize(20);
+  textAlign(CENTER, BOTTOM);
+  text(textToShow, x, y);
+}
+
+if( estadoActual == 1 ){
+
+  let textToShow = "ELIGE EL COLOR CON EL TONO DE TU VOZ";
+  let x = width / 2; // Posición horizontal del texto
+  let y = height - 50; // Posición vertical del texto
+  fill(0);
+  textSize(20);
+  textAlign(CENTER, BOTTOM);
+  text(textToShow, x, y);
+}
+
+if( estadoActual == 2 ){
+
+  let textToShow = "ELIGE EL TAMAÑO CON CON EL VOLUMEN DE TU VOZ";
+  let x = width / 2; // Posición horizontal del texto
+  let y = height - 50; // Posición vertical del texto
+  fill(0);
+  textSize(20);
+  textAlign(CENTER, BOTTOM);
+  text(textToShow, x, y);
+}
+if( estadoActual == 3 ){
+
+  let textToShow = "EMITE UN SONIDO CONTINUO PARA EL REINICIO";
+  let x = width / 2; // Posición horizontal del texto
+  let y = height - 50; // Posición vertical del texto
+  fill(0);
+  textSize(20);
+  textAlign(CENTER, BOTTOM);
+  text(textToShow, x, y);
+}
 //CHEQUEAR QUE SE CAPTURE EL AUDIO
 if( monitorear ){
-  gestorAmp.dibujar( 100 , 100 );
-  gestorPitch.dibujar( 100 , 300 );
+  //gestorAmp.dibujar( width/7 , height - 150 );
+  //gestorPitch.dibujar( width/7, height - 300);
 }
 
 antesHabiaSonido = haySonido;
-console.log( estado );
+console.log( estadoActual );
 }
 
 function cambiarFiguras() {
@@ -305,7 +349,7 @@ switch (formaActual) {
       break;
 
     case "triangulo":
-      rotate(angle + 150 * (width +- desfaseporTono) / width*2)
+      rotate(angle + 58 * (width +- desfaseporTono) / width*2)
       beginShape();
       for (let i = 0; i < 5; i++) {
         let angulo = 600  * i - 5;
@@ -357,7 +401,7 @@ switch (formaActual) {
     break;
       
     case "estrella":
-      rotate(angle + 360 * (width/2 +- desfaseporTono) / width)
+      rotate(angle + 360 * (width/2 +- desfaseporTono*3) / width)
       beginShape();
       for (let i = 0; i < 100; i++) {
         let angulo = (desfaseporTono * 3.5) * i/30;
